@@ -1,28 +1,46 @@
-class CrudRepository{
-    constructor(model){
-         this.model  = model;
+class CrudRepository {
+    constructor(model) {
+        this.model = model;
     }
 
-    async create(data){
-           const res  = await this.model.create(data);
-           return res;
+    async create(data) {
+        const res = await this.model.create(data);
+        return res;
     }
-    async geData(){
-
-    }
-
-
-    async destory(){
-
+    async geData(id) {
+        const res = await this.model.findByPk(id);
+        return res;
     }
 
-     async getAll(){
 
+    async destory(id) {
+        const res = await this.model.destroy({
+            where: {
+                id: id,
+            },
+        });
+
+
+        return res;
     }
 
-async update(){
+    async getAll() {
+        const res = await this.model.findAll();
+        return res;
+    }
 
-}
+    async update(id, data) {
+        const res = await this.model.update(
+            { data },
+            {
+                where: {
+                    id: id,
+                },
+            },
+        );
+
+        return res;
+    }
 }
 
 

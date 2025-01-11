@@ -1,3 +1,5 @@
+const { AppError } = require("../utils")
+const { StatusCodes } = require("http-status-codes")
 class CrudRepository {
     constructor(model) {
         this.model = model;
@@ -8,9 +10,14 @@ class CrudRepository {
         return res;
     }
 
-    
+
     async geData(id) {
         const res = await this.model.findByPk(id);
+
+        if (!res) {
+            throw new AppError(["Not able to found resource."], StatusCodes.BAD_REQUEST)
+        }
+
         return res;
     }
 
@@ -21,6 +28,10 @@ class CrudRepository {
                 id: id,
             },
         });
+
+        if (!res) {
+            throw new AppError(["Not able to found resource."], StatusCodes.BAD_REQUEST)
+        }
 
 
         return res;
@@ -40,6 +51,10 @@ class CrudRepository {
                 },
             },
         );
+
+        if (!res) {
+            throw new AppError(["Not able to found resource."], StatusCodes.BAD_REQUEST)
+        }
 
         return res;
     }

@@ -7,6 +7,8 @@ class CrudRepository {
         const res = await this.model.create(data);
         return res;
     }
+
+    
     async geData(id) {
         const res = await this.model.findByPk(id);
         return res;
